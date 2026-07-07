@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ഹജ്ജ് 2027 - അപേക്ഷ വിഭാഗം കണ്ടെത്തുക</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Noto Sans Malayalam', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    color: #1a202c;
+  }
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, #1e5f3a 0%, #2d7a4e 100%);
+    color: #fff;
+    padding: 28px 32px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 6px 0;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  header .subtitle {
+    font-size: 15px;
+    opacity: 0.9;
+    margin: 0;
+  }
+  .form-section {
+    padding: 28px 32px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .step-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2d7a4e;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .step-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 16px;
+  }
+  .count-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f7fafc;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 2px solid #cbd5e0;
+  }
+  .count-controls label {
+    font-weight: 600;
+    flex: 1;
+  }
+  .count-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #2d7a4e;
+    background: #fff;
+    color: #2d7a4e;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .count-btn:hover:not(:disabled) {
+    background: #2d7a4e;
+    color: #fff;
+  }
+  .count-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .count-value {
+    min-width: 32px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a202c;
+  }
+  .hint {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 6px;
+  }
+  .members-list {
+    margin-top: 20px;
+  }
+  .member-card {
+    background: #f7fafc;
+    border: 2px solid #cbd5e0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 90px 1fr 130px;
+    gap: 14px;
+    align-items: center;
+  }
+  .member-card.head {
+    border-color: #2d7a4e;
+    background: #f0fdf4;
+  }
+  .member-label {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 15px;
+  }
+  .member-label small {
+    display: block;
+    font-size: 11px;
+    color: #2d7a4e;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .gender-toggle {
+    display: flex;
+    gap: 6px;
+  }
+  .gender-toggle label {
+    flex: 1;
+    padding: 8px;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    background: #fff;
+    transition: all 0.15s;
+  }
+  .gender-toggle input[type="radio"] {
+    display: none;
+  }
+  .gender-toggle input[type="radio"]:checked + span {
+    color: #fff;
+  }
+  .gender-toggle label:has(input:checked) {
+    background: #2d7a4e;
+    border-color: #2d7a4e;
+    color: #fff;
+  }
+  .age-input {
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    background: #fff;
+    font-family: inherit;
+    width: 100%;
+  }
+  .age-input:focus {
+    outline: none;
+    border-color: #2d7a4e;
+  }
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #1e5f3a 0%, #2d7a4e 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    font-family: inherit;
+    margin-top: 20px;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(30,95,58,0.3);
+  }
+  .btn:active { transform: translateY(0); }
+  .results {
+    padding: 28px 32px;
+    display: none;
+  }
+  .results.show { display: block; }
+  .results h2 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    color: #1a202c;
+  }
+  .group-summary {
+    background: #eef2ff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #3730a3;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .category-card {
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .category-card.klr { background: linear-gradient(135deg, #14532d 0%, #166534 100%); }
+  .category-card.klwm65 { background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%); }
+  .category-card.klwm45 { background: linear-gradient(135deg, #a21caf 0%, #c026d3 100%); }
+  .category-card.klf { background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%); }
+  .category-card.klfb { background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%); }
+  .category-card h3 {
+    margin: 0 0 4px 0;
+    font-size: 19px;
+    font-weight: 700;
+  }
+  .category-card .cat-sub {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+  }
+  .category-card .cover-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .category-card ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .no-match {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    color: #78350f;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+  .no-match ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+    font-weight: 500;
+  }
+  .note {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #1e3a8a;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+  footer {
+    text-align: center;
+    padding: 16px;
+    background: #f7fafc;
+    color: #4a5568;
+    font-size: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+  @media (max-width: 540px) {
+    .member-card {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>ഹജ്ജ് 2027 - അപേക്ഷ വിഭാഗം</h1>
+    <p class="subtitle">നിങ്ങളുടെ കവറിലുള്ള അംഗങ്ങളുടെ വിവരം നൽകുക</p>
+  </header>
+
+  <div class="form-section">
+    <div class="step-label">STEP 1</div>
+    <div class="step-title">കവറിലെ അംഗങ്ങളുടെ എണ്ണം</div>
+    <div class="count-controls">
+      <label>ആകെ അംഗങ്ങൾ</label>
+      <button class="count-btn" id="decBtn">−</button>
+      <div class="count-value" id="countVal">1</div>
+      <button class="count-btn" id="incBtn">+</button>
+    </div>
+    <div class="hint">പരമാവധി 5 അംഗങ്ങൾ (KLR / KLWM 65+ ൽ 2 അല്ലെങ്കിൽ 4)</div>
+
+    <div style="margin-top: 24px;">
+      <div class="step-label">STEP 2</div>
+      <div class="step-title">ഓരോ അംഗത്തിന്റെയും ലിംഗവും വയസ്സും</div>
+      <div class="members-list" id="membersList"></div>
+    </div>
+
+    <button class="btn" id="checkBtn">വിഭാഗം കണ്ടെത്തുക</button>
+  </div>
+
+  <div class="results" id="results">
+    <h2>ഫലം</h2>
+    <div class="group-summary" id="groupSummary"></div>
+    <div id="cardsContainer"></div>
+  </div>
+
+  <footer>
+    ഉറവിടം: Haj Committee of India — Haj 2027 Categories
+  </footer>
+</div>
+
+<script>
+  const MAX_MEMBERS = 5;
+  let memberCount = 1;
+  const members = []; // {gender, age}
+
+  const countVal = document.getElementById('countVal');
+  const incBtn = document.getElementById('incBtn');
+  const decBtn = document.getElementById('decBtn');
+  const membersList = document.getElementById('membersList');
+
+  function renderMembers() {
+    // preserve existing values
+    const saved = [];
+    for (let i = 0; i < membersList.children.length; i++) {
+      const card = membersList.children[i];
+      const gEl = card.querySelector('input[name="gender_' + i + '"]:checked');
+      const aEl = card.querySelector('input[type="number"]');
+      saved.push({
+        gender: gEl ? gEl.value : '',
+        age: aEl ? aEl.value : ''
+      });
+    }
+
+    membersList.innerHTML = '';
+    for (let i = 0; i < memberCount; i++) {
+      const s = saved[i] || { gender: '', age: '' };
+      const card = document.createElement('div');
+      card.className = 'member-card' + (i === 0 ? ' head' : '');
+      card.innerHTML =
+        '<div class="member-label">അംഗം ' + (i + 1) +
+        (i === 0 ? '<small>കവർ ഹെഡ്</small>' : '') +
+        '</div>' +
+        '<div class="gender-toggle">' +
+          '<label><input type="radio" name="gender_' + i + '" value="male"' + (s.gender === 'male' ? ' checked' : '') + '/><span>പുരുഷൻ</span></label>' +
+          '<label><input type="radio" name="gender_' + i + '" value="female"' + (s.gender === 'female' ? ' checked' : '') + '/><span>സ്ത്രീ</span></label>' +
+        '</div>' +
+        '<input type="number" class="age-input" min="1" max="120" placeholder="വയസ്സ്" value="' + (s.age || '') + '" />';
+      membersList.appendChild(card);
+    }
+    countVal.textContent = memberCount;
+    incBtn.disabled = memberCount >= MAX_MEMBERS;
+    decBtn.disabled = memberCount <= 1;
+  }
+
+  incBtn.addEventListener('click', () => {
+    if (memberCount < MAX_MEMBERS) { memberCount++; renderMembers(); }
+  });
+  decBtn.addEventListener('click', () => {
+    if (memberCount > 1) { memberCount--; renderMembers(); }
+  });
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const grp = [];
+    for (let i = 0; i < memberCount; i++) {
+      const card = membersList.children[i];
+      const gEl = card.querySelector('input[name="gender_' + i + '"]:checked');
+      const aEl = card.querySelector('input[type="number"]');
+      if (!gEl) {
+        alert('അംഗം ' + (i + 1) + ' ന്റെ ലിംഗം തിരഞ്ഞെടുക്കുക');
+        return;
+      }
+      if (!aEl.value || parseInt(aEl.value) < 1) {
+        alert('അംഗം ' + (i + 1) + ' ന്റെ വയസ്സ് നൽകുക');
+        return;
+      }
+      grp.push({ gender: gEl.value, age: parseInt(aEl.value) });
+    }
+    const results = check(grp);
+    render(results, grp);
+  });
+
+  // Eligibility engine
+  function check(g) {
+    const results = [];
+    const n = g.length;
+    const males = g.filter(m => m.gender === 'male');
+    const females = g.filter(m => m.gender === 'female');
+    const seniors = g.filter(m => m.age >= 65);
+    const helpers1865 = g.filter(m => m.age >= 18 && m.age <= 65);
+    const femaleHelpers = g.filter(m => m.gender === 'female' && m.age >= 45 && m.age <= 60);
+    const femaleSeniors = g.filter(m => m.gender === 'female' && m.age >= 65);
+    const allFemale = females.length === n;
+    const allAdult = g.every(m => m.age >= 18);
+
+    // 1. KLR — 65+ Age Category
+    // Valid: (1 senior + 1 helper) OR (2 seniors + 2 helpers)
+    if ((n === 2 && seniors.length === 1 && helpers1865.length === 1) ||
+        (n === 4 && seniors.length === 2 && helpers1865.length === 2)) {
+      results.push({
+        cls: 'klr', code: 'KLR',
+        title: '1. 65+ Age Category',
+        sub: 'റിസർവ് കാറ്റഗറി',
+        points: [
+          '65+ പ്രായമുള്ള ' + seniors.length + ' പേരും ' + helpers1865.length + ' സഹായി(കൾ)ഉം.',
+          'സഹായി(കൾ) ഭാര്യ / മക്കൾ / മരുമക്കൾ പോലുള്ള അടുത്ത ബന്ധുവായിരിക്കണം.',
+          'ഒരു കവറിൽ 2 അല്ലെങ്കിൽ 4 പേർക്ക് അപേക്ഷിക്കാം.'
+        ]
+      });
+    }
+
+    // 2. KLWM 65+
+    // All female, (1 senior + 1 female helper 45-60) OR (2 seniors + 2 female helpers 45-60)
+    if (allFemale &&
+        ((n === 2 && femaleSeniors.length === 1 && femaleHelpers.length === 1) ||
+         (n === 4 && femaleSeniors.length === 2 && femaleHelpers.length === 2))) {
+      results.push({
+        cls: 'klwm65', code: 'KLWM',
+        title: '2. Ladies Without Mehram (LWM) 65+',
+        sub: 'മഹ്റമില്ലാത്ത 65+ സ്ത്രീകൾ',
+        points: [
+          '65+ ' + femaleSeniors.length + ' സ്ത്രീ(കൾ) + 45–60 പ്രായത്തിലുള്ള ' + femaleHelpers.length + ' വനിതാ സഹായി(കൾ).',
+          'ഒരു കവറിൽ 2 അല്ലെങ്കിൽ 4 പേർക്ക് അപേക്ഷിക്കാം.'
+        ]
+      });
+    }
+
+    // 3. KLWM 45+
+    // All female, all aged 45-60, max 5
+    if (allFemale && n <= 5 && g.every(m => m.age >= 45 && m.age <= 60)) {
+      results.push({
+        cls: 'klwm45', code: 'KLWM',
+        title: '3. Ladies Without Mehram (LWM) 45+',
+        sub: '45–60 പ്രായത്തിലുള്ള സ്ത്രീകൾ',
+        points: [
+          n + ' സ്ത്രീകൾ, എല്ലാവരും 45–60 പ്രായത്തിൽ.',
+          'സഹായി നിർബന്ധമല്ല. പരമാവധി 5 പേർ.'
+        ]
+      });
+    }
+
+    // 4. KLF — General
+    // 1-5 members, all >=18, cover head must be male, women need mehram (at least one male if any female)
+    // First member is treated as cover head
+    const headIsMale = g[0].gender === 'male';
+    if (n >= 1 && n <= 5 && allAdult && headIsMale) {
+      // if there are females, mehram (male) is present since head is male
+      const points = [
+        n + ' അംഗങ്ങൾ (എല്ലാവരും 18+).',
+        'കവർ ഹെഡ്: പുരുഷൻ ✓'
+      ];
+      if (females.length > 0) {
+        points.push('സ്ത്രീകൾക്ക് കവറിലെ പുരുഷൻ മഹ്റം ആയി പ്രവർത്തിക്കുന്നു.');
+      }
+      points.push('പുരുഷന്റെ യാത്ര ക്യാൻസലായാൽ കവറിലെ എല്ലാവരുടെയും ക്യാൻസലാകും.');
+      results.push({
+        cls: 'klf', code: 'KLF',
+        title: '4. General',
+        sub: 'പൊതു വിഭാഗം',
+        points: points
+      });
+      results.push({
+        cls: 'klfb', code: 'KLFB',
+        title: '5. General – Backlog (WL)',
+        sub: 'കഴിഞ്ഞ വർഷത്തെ വെയ്റ്റിംഗ് ലിസ്റ്റ്',
+        points: [
+          'General വിഭാഗത്തിന്റെ എല്ലാ നിബന്ധനകളും ബാധകം.',
+          'കഴിഞ്ഞ വർഷം സെലക്ഷൻ ലഭിക്കാത്ത വെയ്റ്റിംഗ് ലിസ്റ്റ് (WL-5608 മുതൽ WL-8204 വരെ) ഉള്ളവർക്ക് മാത്രം.',
+          'അപേക്ഷിക്കുമ്പോൾ കഴിഞ്ഞ വർഷത്തെ കവർ നമ്പർ സെലക്ട് ചെയ്യണം.'
+        ]
+      });
+    }
+
+    return { list: results, males: males.length, females: females.length, n: n };
+  }
+
+  function render(res, g) {
+    const container = document.getElementById('cardsContainer');
+    const summary = document.getElementById('groupSummary');
+    container.innerHTML = '';
+
+    // group summary
+    const ages = g.map(m => (m.gender === 'male' ? '♂' : '♀') + m.age).join(', ');
+    summary.innerHTML = '<strong>നിങ്ങളുടെ ഗ്രൂപ്പ്:</strong> ' + res.n + ' അംഗങ്ങൾ (പുരുഷന്മാർ: ' + res.males + ', സ്ത്രീകൾ: ' + res.females + ')<br>' +
+                       '<strong>അംഗങ്ങൾ:</strong> ' + ages;
+
+    if (res.list.length === 0) {
+      const reasons = [];
+      const allAdult = g.every(m => m.age >= 18);
+      if (!allAdult) reasons.push('എല്ലാ അംഗങ്ങളും 18+ ആയിരിക്കണം.');
+      if (g[0].gender !== 'male' && res.females < res.n) reasons.push('General വിഭാഗത്തിന് കവർ ഹെഡ് പുരുഷനായിരിക്കണം.');
+      if (g[0].gender !== 'male' && res.females === res.n) reasons.push('എല്ലാ അംഗങ്ങളും സ്ത്രീകൾ ആയാൽ KLWM 45+ (45–60) അല്ലെങ്കിൽ KLWM 65+ (65+ & 45–60 സഹായി) മാത്രം സാധ്യമാണ്.');
+
+      const div = document.createElement('div');
+      div.className = 'no-match';
+      let html = '⚠ ഈ ഗ്രൂപ്പിന് അനുയോജ്യമായ ഒരു വിഭാഗവും കണ്ടെത്താൻ കഴിഞ്ഞില്ല.';
+      if (reasons.length > 0) {
+        html += '<ul>' + reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
+      }
+      html += '<div style="margin-top:10px;font-weight:500;font-size:13px;">അംഗങ്ങളുടെ എണ്ണം അല്ലെങ്കിൽ ഘടന മാറ്റി വീണ്ടും ശ്രമിക്കുക.</div>';
+      div.innerHTML = html;
+      container.appendChild(div);
+    } else {
+      res.list.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-card ' + cat.cls;
+        let html = '<h3>' + cat.title + '</h3>';
+        html += '<div class="cat-sub">' + cat.sub + '</div>';
+        html += '<span class="cover-badge">കവർ നമ്പർ: ' + cat.code + '</span>';
+        html += '<ul>';
+        cat.points.forEach(p => { html += '<li>' + p + '</li>'; });
+        html += '</ul>';
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerHTML = '📌 <strong>ശ്രദ്ധിക്കുക:</strong> ഇത് പ്രാഥമിക മാർഗ്ഗനിർദ്ദേശം മാത്രമാണ്. അപേക്ഷിക്കുന്നതിനു മുൻപ് Haj Committee of India-യുടെ ഔദ്യോഗിക നിർദ്ദേശങ്ങൾ പരിശോധിക്കുക.';
+      container.appendChild(note);
+    }
+
+    const results = document.getElementById('results');
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // init
+  renderMembers();
+</script>
+</body>
+</html>
