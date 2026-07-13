@@ -8,7 +8,7 @@
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
   body {
-    font-family: 'Segoe UI', 'Noto Sans Malayalam', Tahoma, sans-serif;
+    font-family: 'Segoe UI', 'Noto Sans Malayalam', 'Meera', 'Manjari', Tahoma, sans-serif;
     background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
     margin: 0;
     padding: 20px;
@@ -44,16 +44,25 @@
     border-bottom: 1px solid #e2e8f0;
   }
   .step-label {
+    display: inline-block;
+    background: #e6fffa;
+    color: #047481;
+    padding: 4px 10px;
+    border-radius: 20px;
     font-size: 12px;
     font-weight: 700;
-    color: #2d7a4e;
     letter-spacing: 1px;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
   .step-title {
     font-size: 17px;
     font-weight: 700;
     color: #1a202c;
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: #4a5568;
     margin-bottom: 16px;
   }
   .count-controls {
@@ -83,7 +92,6 @@
     align-items: center;
     justify-content: center;
     transition: all 0.15s;
-    font-family: inherit;
   }
   .count-btn:hover:not(:disabled) {
     background: #2d7a4e;
@@ -103,30 +111,37 @@
   .hint {
     font-size: 12px;
     color: #718096;
-    margin-top: 6px;
+    margin-top: 8px;
   }
   .members-list {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   .member-card {
     background: #f7fafc;
     border: 2px solid #cbd5e0;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 16px;
-    margin-bottom: 12px;
-    display: grid;
-    grid-template-columns: 90px 1fr 130px;
-    gap: 14px;
-    align-items: center;
+    transition: border-color 0.2s;
   }
+  .member-card:hover { border-color: #a0aec0; }
   .member-card.head {
     border-color: #2d7a4e;
     background: #f0fdf4;
+  }
+  .member-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
   }
   .member-label {
     font-weight: 700;
     color: #2d3748;
     font-size: 15px;
+    min-width: 100px;
   }
   .member-label small {
     display: block;
@@ -138,6 +153,8 @@
   .gender-toggle {
     display: flex;
     gap: 6px;
+    flex: 1;
+    min-width: 140px;
   }
   .gender-toggle label {
     flex: 1;
@@ -151,12 +168,7 @@
     background: #fff;
     transition: all 0.15s;
   }
-  .gender-toggle input[type="radio"] {
-    display: none;
-  }
-  .gender-toggle input[type="radio"]:checked + span {
-    color: #fff;
-  }
+  .gender-toggle input[type="radio"] { display: none; }
   .gender-toggle label:has(input:checked) {
     background: #2d7a4e;
     border-color: #2d7a4e;
@@ -168,50 +180,85 @@
     border: 2px solid #cbd5e0;
     border-radius: 6px;
     background: #fff;
+    width: 90px;
     font-family: inherit;
-    width: 100%;
+    text-align: center;
   }
-  .age-input:focus {
-    outline: none;
-    border-color: #2d7a4e;
+  .age-input:focus { outline: none; border-color: #2d7a4e; }
+
+  .hajj-question {
+    margin-top: 12px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e0;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
   }
+  .hajj-question p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+  }
+  .hajj-question p span {
+    display: block;
+    font-size: 11px;
+    color: #e53e3e;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .hajj-question .gender-toggle label:has(input:checked) {
+    background: #3182ce;
+    border-color: #3182ce;
+  }
+
   .btn {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background: linear-gradient(135deg, #1e5f3a 0%, #2d7a4e 100%);
     color: #fff;
     border: none;
-    border-radius: 8px;
-    font-size: 17px;
+    border-radius: 10px;
+    font-size: 18px;
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.2s;
-    font-family: inherit;
-    margin-top: 20px;
+    margin-top: 24px;
   }
-  .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(30,95,58,0.3);
+  .btn:hover { box-shadow: 0 6px 20px rgba(30,95,58,0.3); }
+  .btn:active { transform: translateY(2px); }
+
+  .disclaimer-box {
+    background: #fff5f5;
+    border-left: 4px solid #e53e3e;
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #9b2c2c;
+    margin-top: 24px;
+    line-height: 1.6;
   }
-  .btn:active { transform: translateY(0); }
-  .results {
-    padding: 28px 32px;
-    display: none;
-  }
-  .results.show { display: block; }
-  .results h2 {
-    margin: 0 0 6px 0;
-    font-size: 20px;
-    color: #1a202c;
-  }
+  .disclaimer-box strong { color: #e53e3e; }
+
+  .results { padding: 28px 32px; display: none; }
+  .results.show { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .results h2 { margin: 0 0 16px 0; font-size: 22px; color: #1a202c; }
   .group-summary {
     background: #eef2ff;
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border-radius: 10px;
     font-size: 14px;
     color: #3730a3;
     margin-bottom: 20px;
     line-height: 1.6;
+    border-left: 4px solid #4f46e5;
   }
   .category-card {
     border-radius: 12px;
@@ -225,16 +272,8 @@
   .category-card.klwm45 { background: linear-gradient(135deg, #a21caf 0%, #c026d3 100%); }
   .category-card.klf { background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%); }
   .category-card.klfb { background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%); }
-  .category-card h3 {
-    margin: 0 0 4px 0;
-    font-size: 19px;
-    font-weight: 700;
-  }
-  .category-card .cat-sub {
-    font-size: 13px;
-    opacity: 0.9;
-    margin-bottom: 10px;
-  }
+  .category-card h3 { margin: 0 0 4px 0; font-size: 19px; font-weight: 700; }
+  .category-card .cat-sub { font-size: 13px; opacity: 0.9; margin-bottom: 10px; }
   .category-card .cover-badge {
     display: inline-block;
     background: rgba(255,255,255,0.22);
@@ -245,26 +284,18 @@
     margin-bottom: 12px;
     letter-spacing: 0.5px;
   }
-  .category-card ul {
-    margin: 10px 0 0 0;
-    padding-left: 20px;
-    font-size: 14px;
-    line-height: 1.7;
-  }
+  .category-card ul { margin: 10px 0 0 0; padding-left: 20px; font-size: 14px; line-height: 1.7; }
+
   .no-match {
-    background: #fef3c7;
+    background: #fffbeb;
     border: 2px solid #f59e0b;
-    color: #78350f;
+    color: #92400e;
     padding: 20px;
     border-radius: 12px;
     font-weight: 600;
     line-height: 1.7;
   }
-  .no-match ul {
-    margin: 8px 0 0 20px;
-    padding: 0;
-    font-weight: 500;
-  }
+  .no-match ul { margin: 8px 0 0 20px; padding: 0; font-weight: 500; }
   .note {
     background: #eff6ff;
     border-left: 4px solid #2563eb;
@@ -284,11 +315,10 @@
     border-top: 1px solid #e2e8f0;
   }
   @media (max-width: 540px) {
-    .member-card {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    header h1 { font-size: 22px; }
+    .member-top { flex-direction: column; align-items: stretch; }
+    .age-input { width: 100%; }
+    .hajj-question { flex-direction: column; align-items: flex-start; }
+    .hajj-question .gender-toggle { width: 100%; }
   }
 </style>
 </head>
@@ -296,7 +326,7 @@
 <div class="container">
   <header>
     <h1>ഹജ്ജ് 2027 - അപേക്ഷ വിഭാഗം</h1>
-    <p class="subtitle">നിങ്ങളുടെ കവറിലുള്ള അംഗങ്ങളുടെ വിവരം നൽകുക</p>
+    <p class="subtitle">നിങ്ങളുടെ ഗ്രൂപ്പിന് അനുയോജ്യമായ കാറ്റഗറി കണ്ടെത്താം</p>
   </header>
 
   <div class="form-section">
@@ -308,15 +338,20 @@
       <div class="count-value" id="countVal">1</div>
       <button class="count-btn" id="incBtn">+</button>
     </div>
-    <div class="hint">പരമാവധി 5 അംഗങ്ങൾ (KLR / KLWM 65+ ൽ 2 അല്ലെങ്കിൽ 4)</div>
+    <div class="hint">പരമാവധി 5 അംഗങ്ങൾ (65+ കാറ്റഗറികളിൽ 2 അല്ലെങ്കിൽ 4 പേർ മാത്രം)</div>
 
-    <div style="margin-top: 24px;">
+    <div style="margin-top: 30px;">
       <div class="step-label">STEP 2</div>
-      <div class="step-title">ഓരോ അംഗത്തിന്റെയും ലിംഗവും വയസ്സും</div>
+      <div class="step-title">അംഗങ്ങളുടെ വിവരങ്ങൾ നൽകുക</div>
+      <div class="step-desc">⚠️ ജൂൺ 22 ലെ പ്രായം കണക്കാക്കി നൽകുക.</div>
       <div class="members-list" id="membersList"></div>
     </div>
 
-    <button class="btn" id="checkBtn">വിഭാഗം കണ്ടെത്തുക</button>
+    <button class="btn" id="checkBtn">യോഗ്യത പരിശോധിക്കുക</button>
+
+    <div class="disclaimer-box">
+      <strong>Disclaimer:</strong> ഇതൊരു പ്രാഥമിക പരിശോധനയ്ക്കായി മാത്രമുള്ള അനൗദ്യോഗിക ടൂൾ ആണ്. നിങ്ങളുടെ അപേക്ഷാ വിഭാഗം (Category) അന്തിമമായി ഉറപ്പാക്കുന്നതിന് അപേക്ഷ സമർപ്പിക്കുന്നതിന് മുൻപായി ദയവായി ഹജ്ജ് കമ്മിറ്റി അധികാരികളുമായി (Haj Committee Authorities) ബന്ധപ്പെടുകയോ ഔദ്യോഗിക മാർഗ്ഗനിർദ്ദേശങ്ങൾ പരിശോധിക്കുകയോ ചെയ്യുക.
+    </div>
   </div>
 
   <div class="results" id="results">
@@ -326,14 +361,13 @@
   </div>
 
   <footer>
-    ഉറവിടം: Haj Committee of India — Haj 2027 Categories
+    ഉറവിടം: Haj Committee of India — Guidelines
   </footer>
 </div>
 
 <script>
   const MAX_MEMBERS = 5;
   let memberCount = 1;
-  const members = []; // {gender, age}
 
   const countVal = document.getElementById('countVal');
   const incBtn = document.getElementById('incBtn');
@@ -341,33 +375,60 @@
   const membersList = document.getElementById('membersList');
 
   function renderMembers() {
-    // preserve existing values
     const saved = [];
     for (let i = 0; i < membersList.children.length; i++) {
       const card = membersList.children[i];
       const gEl = card.querySelector('input[name="gender_' + i + '"]:checked');
-      const aEl = card.querySelector('input[type="number"]');
+      const aEl = card.querySelector('.age-input');
+      const hEl = card.querySelector('input[name="hajj_' + i + '"]:checked');
       saved.push({
         gender: gEl ? gEl.value : '',
-        age: aEl ? aEl.value : ''
+        age: aEl ? aEl.value : '',
+        hajj: hEl ? hEl.value : ''
       });
     }
 
     membersList.innerHTML = '';
     for (let i = 0; i < memberCount; i++) {
-      const s = saved[i] || { gender: '', age: '' };
+      const s = saved[i] || { gender: '', age: '', hajj: '' };
       const card = document.createElement('div');
       card.className = 'member-card' + (i === 0 ? ' head' : '');
-      card.innerHTML =
-        '<div class="member-label">അംഗം ' + (i + 1) +
-        (i === 0 ? '<small>കവർ ഹെഡ്</small>' : '') +
-        '</div>' +
+
+      const isSenior = parseInt(s.age) >= 65;
+
+      let html = '<div class="member-top">' +
+        '<div class="member-label">അംഗം ' + (i + 1) + (i === 0 ? '<small>കവർ ഹെഡ്</small>' : '') + '</div>' +
         '<div class="gender-toggle">' +
           '<label><input type="radio" name="gender_' + i + '" value="male"' + (s.gender === 'male' ? ' checked' : '') + '/><span>പുരുഷൻ</span></label>' +
           '<label><input type="radio" name="gender_' + i + '" value="female"' + (s.gender === 'female' ? ' checked' : '') + '/><span>സ്ത്രീ</span></label>' +
         '</div>' +
-        '<input type="number" class="age-input" min="1" max="120" placeholder="വയസ്സ്" value="' + (s.age || '') + '" />';
+        '<input type="number" class="age-input" id="age_input_' + i + '" min="1" max="120" placeholder="വയസ്സ്" value="' + (s.age || '') + '" />' +
+      '</div>';
+
+      html += '<div class="hajj-question" id="hajj_div_' + i + '" style="display: ' + (isSenior ? 'flex' : 'none') + ';">' +
+        '<p>മുൻപ് ഹജ്ജ് നിർവഹിച്ചിട്ടുണ്ടോ? <span>(65+ വയസ്സുള്ളവർക്ക് മാത്രം ബാധകം)</span></p>' +
+        '<div class="gender-toggle">' +
+          '<label><input type="radio" name="hajj_' + i + '" value="yes"' + (s.hajj === 'yes' ? ' checked' : '') + '/><span>അതെ (Yes)</span></label>' +
+          '<label><input type="radio" name="hajj_' + i + '" value="no"' + (s.hajj === 'no' ? ' checked' : '') + '/><span>ഇല്ല (No)</span></label>' +
+        '</div>' +
+      '</div>';
+
+      card.innerHTML = html;
       membersList.appendChild(card);
+
+      const ageInput = card.querySelector('#age_input_' + i);
+      const hajjDiv = card.querySelector('#hajj_div_' + i);
+
+      ageInput.addEventListener('input', function() {
+        const val = parseInt(this.value);
+        if (val >= 65) {
+          hajjDiv.style.display = 'flex';
+        } else {
+          hajjDiv.style.display = 'none';
+          const radios = hajjDiv.querySelectorAll('input[type="radio"]');
+          radios.forEach(r => r.checked = false);
+        }
+      });
     }
     countVal.textContent = memberCount;
     incBtn.disabled = memberCount >= MAX_MEMBERS;
@@ -386,24 +447,33 @@
     for (let i = 0; i < memberCount; i++) {
       const card = membersList.children[i];
       const gEl = card.querySelector('input[name="gender_' + i + '"]:checked');
-      const aEl = card.querySelector('input[type="number"]');
-      if (!gEl) {
-        alert('അംഗം ' + (i + 1) + ' ന്റെ ലിംഗം തിരഞ്ഞെടുക്കുക');
-        return;
+      const aEl = card.querySelector('.age-input');
+      const hEl = card.querySelector('input[name="hajj_' + i + '"]:checked');
+
+      if (!gEl) { alert('അംഗം ' + (i + 1) + ' ന്റെ ലിംഗം തിരഞ്ഞെടുക്കുക'); return; }
+      if (!aEl.value || parseInt(aEl.value) < 1) { alert('അംഗം ' + (i + 1) + ' ന്റെ വയസ്സ് നൽകുക'); return; }
+
+      const age = parseInt(aEl.value);
+      let hajjStatus = 'no';
+
+      if (age >= 65) {
+        if (!hEl) {
+          alert('അംഗം ' + (i + 1) + ' (65+) മുൻപ് ഹജ്ജ് ചെയ്തിട്ടുണ്ടോ എന്ന് രേഖപ്പെടുത്തുക');
+          return;
+        }
+        hajjStatus = hEl.value;
       }
-      if (!aEl.value || parseInt(aEl.value) < 1) {
-        alert('അംഗം ' + (i + 1) + ' ന്റെ വയസ്സ് നൽകുക');
-        return;
-      }
-      grp.push({ gender: gEl.value, age: parseInt(aEl.value) });
+
+      grp.push({ gender: gEl.value, age: age, hajj: hajjStatus });
     }
-    const results = check(grp);
-    render(results, grp);
+    const resultsData = check(grp);
+    render(resultsData, grp);
   });
 
-  // Eligibility engine
   function check(g) {
     const results = [];
+    let rejectReasons = [];
+
     const n = g.length;
     const males = g.filter(m => m.gender === 'male');
     const females = g.filter(m => m.gender === 'female');
@@ -414,58 +484,70 @@
     const allFemale = females.length === n;
     const allAdult = g.every(m => m.age >= 18);
 
+    const seniorsHajjDone = seniors.some(m => m.hajj === 'yes');
+    const femaleSeniorsHajjDone = femaleSeniors.some(m => m.hajj === 'yes');
+
     // 1. KLR — 65+ Age Category
-    // Valid: (1 senior + 1 helper) OR (2 seniors + 2 helpers)
-    if ((n === 2 && seniors.length === 1 && helpers1865.length === 1) ||
-        (n === 4 && seniors.length === 2 && helpers1865.length === 2)) {
-      results.push({
-        cls: 'klr', code: 'KLR',
-        title: '1. 65+ Age Category',
-        sub: 'റിസർവ് കാറ്റഗറി',
-        points: [
-          '65+ പ്രായമുള്ള ' + seniors.length + ' പേരും ' + helpers1865.length + ' സഹായി(കൾ)ഉം.',
-          'സഹായി(കൾ) ഭാര്യ / മക്കൾ / മരുമക്കൾ പോലുള്ള അടുത്ത ബന്ധുവായിരിക്കണം.',
-          'ഒരു കവറിൽ 2 അല്ലെങ്കിൽ 4 പേർക്ക് അപേക്ഷിക്കാം.'
-        ]
-      });
+    const meetsKlrStructure = (n === 2 && seniors.length === 1 && helpers1865.length === 1) ||
+                              (n === 4 && seniors.length === 2 && helpers1865.length === 2);
+
+    if (meetsKlrStructure) {
+      if (!seniorsHajjDone) {
+        results.push({
+          cls: 'klr', code: 'KLR',
+          title: '1. 65+ Age Category',
+          sub: 'റിസർവ് കാറ്റഗറി',
+          points: [
+            '65+ പ്രായമുള്ള ' + seniors.length + ' പേരും ' + helpers1865.length + ' സഹായി(കൾ)ഉം അടങ്ങുന്ന ഗ്രൂപ്പ്.',
+            'സഹായി(കൾ) ഭാര്യ / മക്കൾ / മരുമക്കൾ പോലുള്ള അടുത്ത ബന്ധുവായിരിക്കണം.',
+            '65+ കാറ്റഗറിയിൽ അപേക്ഷിക്കുന്നവർ മുൻപ് ഒരു തവണ പോലും (പ്രൈവറ്റ് ആയോ ഗവൺമെന്റ് വഴിയോ) ഹജ്ജ് കർമ്മം നിർവഹിച്ചവരാകാൻ പാടില്ല.'
+          ]
+        });
+      } else {
+        rejectReasons.push('നിങ്ങളുടെ ഗ്രൂപ്പിലെ 65+ വയസ്സുള്ള അംഗം മുൻപ് ഹജ്ജ് ചെയ്തിട്ടുള്ളതിനാൽ അവർക്ക് റിസർവ് കാറ്റഗറിക്ക് (65+) അർഹതയില്ല.');
+      }
     }
 
     // 2. KLWM 65+
-    // All female, (1 senior + 1 female helper 45-60) OR (2 seniors + 2 female helpers 45-60)
-    if (allFemale &&
-        ((n === 2 && femaleSeniors.length === 1 && femaleHelpers.length === 1) ||
-         (n === 4 && femaleSeniors.length === 2 && femaleHelpers.length === 2))) {
-      results.push({
-        cls: 'klwm65', code: 'KLWM',
-        title: '2. Ladies Without Mehram (LWM) 65+',
-        sub: 'മഹ്റമില്ലാത്ത 65+ സ്ത്രീകൾ',
-        points: [
-          '65+ ' + femaleSeniors.length + ' സ്ത്രീ(കൾ) + 45–60 പ്രായത്തിലുള്ള ' + femaleHelpers.length + ' വനിതാ സഹായി(കൾ).',
-          'ഒരു കവറിൽ 2 അല്ലെങ്കിൽ 4 പേർക്ക് അപേക്ഷിക്കാം.'
-        ]
-      });
+    const meetsKlwm65Structure = allFemale && (
+      (n === 2 && femaleSeniors.length === 1 && femaleHelpers.length === 1) ||
+      (n === 4 && femaleSeniors.length === 2 && femaleHelpers.length === 2)
+    );
+
+    if (meetsKlwm65Structure) {
+      if (!femaleSeniorsHajjDone) {
+        results.push({
+          cls: 'klwm65', code: 'KLWM',
+          title: '2. Ladies Without Mehram (LWM) 65+',
+          sub: 'മഹ്റമില്ലാത്ത 65+ സ്ത്രീകൾ',
+          points: [
+            '65+ വയസ്സുള്ള ' + femaleSeniors.length + ' സ്ത്രീ(കൾ) + 45–60 പ്രായത്തിലുള്ള ' + femaleHelpers.length + ' വനിതാ സഹായി(കൾ).',
+            '65+ കാറ്റഗറിയിൽ അപേക്ഷിക്കുന്നവർ മുൻപ് ഒരു തവണ പോലും ഹജ്ജ് കർമ്മം നിർവഹിച്ചവരാകാൻ പാടില്ല.'
+          ]
+        });
+      } else {
+        if (!rejectReasons.includes('നിങ്ങളുടെ ഗ്രൂപ്പിലെ 65+ വയസ്സുള്ള അംഗം മുൻപ് ഹജ്ജ് ചെയ്തിട്ടുള്ളതിനാൽ അവർക്ക് റിസർവ് കാറ്റഗറിക്ക് (65+) അർഹതയില്ല.')) {
+          rejectReasons.push('നിങ്ങളുടെ ഗ്രൂപ്പിലെ 65+ വയസ്സുള്ള അംഗം മുൻപ് ഹജ്ജ് ചെയ്തിട്ടുള്ളതിനാൽ അവർക്ക് റിസർവ് കാറ്റഗറിക്ക് (65+) അർഹതയില്ല.');
+        }
+      }
     }
 
     // 3. KLWM 45+
-    // All female, all aged 45-60, max 5
     if (allFemale && n <= 5 && g.every(m => m.age >= 45 && m.age <= 60)) {
       results.push({
         cls: 'klwm45', code: 'KLWM',
         title: '3. Ladies Without Mehram (LWM) 45+',
         sub: '45–60 പ്രായത്തിലുള്ള സ്ത്രീകൾ',
         points: [
-          n + ' സ്ത്രീകൾ, എല്ലാവരും 45–60 പ്രായത്തിൽ.',
-          'സഹായി നിർബന്ധമല്ല. പരമാവധി 5 പേർ.'
+          n + ' സ്ത്രീകൾ, എല്ലാവരും 45–60 പ്രായപരിധിയിൽ.',
+          'മഹ്റം അല്ലെങ്കിൽ സഹായി നിർബന്ധമല്ല. പരമാവധി 5 പേർക്ക് അപേക്ഷിക്കാം.'
         ]
       });
     }
 
     // 4. KLF — General
-    // 1-5 members, all >=18, cover head must be male, women need mehram (at least one male if any female)
-    // First member is treated as cover head
     const headIsMale = g[0].gender === 'male';
     if (n >= 1 && n <= 5 && allAdult && headIsMale) {
-      // if there are females, mehram (male) is present since head is male
       const points = [
         n + ' അംഗങ്ങൾ (എല്ലാവരും 18+).',
         'കവർ ഹെഡ്: പുരുഷൻ ✓'
@@ -473,26 +555,27 @@
       if (females.length > 0) {
         points.push('സ്ത്രീകൾക്ക് കവറിലെ പുരുഷൻ മഹ്റം ആയി പ്രവർത്തിക്കുന്നു.');
       }
-      points.push('പുരുഷന്റെ യാത്ര ക്യാൻസലായാൽ കവറിലെ എല്ലാവരുടെയും ക്യാൻസലാകും.');
+      points.push('ഹജ്ജ് കമ്മിറ്റി നിയമപ്രകാരം അപേക്ഷകർ മുൻപ് ഹജ്ജ് ചെയ്തിട്ടില്ലാത്തവർ ആയിരിക്കണം (മഹ്റം / സഹായി ഒഴികെ).');
+
       results.push({
         cls: 'klf', code: 'KLF',
-        title: '4. General',
+        title: '4. General Category',
         sub: 'പൊതു വിഭാഗം',
         points: points
       });
+
       results.push({
         cls: 'klfb', code: 'KLFB',
         title: '5. General – Backlog (WL)',
         sub: 'കഴിഞ്ഞ വർഷത്തെ വെയ്റ്റിംഗ് ലിസ്റ്റ്',
         points: [
-          'General വിഭാഗത്തിന്റെ എല്ലാ നിബന്ധനകളും ബാധകം.',
-          'കഴിഞ്ഞ വർഷം സെലക്ഷൻ ലഭിക്കാത്ത വെയ്റ്റിംഗ് ലിസ്റ്റ് (WL-5608 മുതൽ WL-8204 വരെ) ഉള്ളവർക്ക് മാത്രം.',
+          'കഴിഞ്ഞ വർഷം സെലക്ഷൻ ലഭിക്കാത്ത വെയ്റ്റിംഗ് ലിസ്റ്റ് ഉള്ളവർക്ക് മാത്രം.',
           'അപേക്ഷിക്കുമ്പോൾ കഴിഞ്ഞ വർഷത്തെ കവർ നമ്പർ സെലക്ട് ചെയ്യണം.'
         ]
       });
     }
 
-    return { list: results, males: males.length, females: females.length, n: n };
+    return { list: results, males: males.length, females: females.length, n: n, rejectReasons: rejectReasons };
   }
 
   function render(res, g) {
@@ -500,25 +583,36 @@
     const summary = document.getElementById('groupSummary');
     container.innerHTML = '';
 
-    // group summary
-    const ages = g.map(m => (m.gender === 'male' ? '♂' : '♀') + m.age).join(', ');
-    summary.innerHTML = '<strong>നിങ്ങളുടെ ഗ്രൂപ്പ്:</strong> ' + res.n + ' അംഗങ്ങൾ (പുരുഷന്മാർ: ' + res.males + ', സ്ത്രീകൾ: ' + res.females + ')<br>' +
-                       '<strong>അംഗങ്ങൾ:</strong> ' + ages;
+    const agesStr = g.map(m => {
+      const s = (m.gender === 'male' ? 'പുരുഷൻ ' : 'സ്ത്രീ ') + '(വയസ്സ്: ' + m.age + ')';
+      return (m.age >= 65 && m.hajj === 'yes') ? s + ' - മുൻപ് ഹജ്ജ് ചെയ്തു' : s;
+    }).join(',<br> • ');
+
+    summary.innerHTML = '<strong>നിങ്ങളുടെ ഗ്രൂപ്പ്:</strong> ' + res.n + ' അംഗങ്ങൾ (പുരുഷന്മാർ: ' + res.males + ', സ്ത്രീകൾ: ' + res.females + ')<br><br>' +
+                        '<strong>അംഗങ്ങളുടെ വിവരങ്ങൾ:</strong><br> • ' + agesStr;
+
+    if (res.rejectReasons && res.rejectReasons.length > 0) {
+      const rejDiv = document.createElement('div');
+      rejDiv.className = 'no-match';
+      rejDiv.style.marginBottom = '16px';
+      rejDiv.innerHTML = '⚠ <strong>ശ്രദ്ധിക്കുക:</strong><ul>' + res.rejectReasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
+      container.appendChild(rejDiv);
+    }
 
     if (res.list.length === 0) {
       const reasons = [];
       const allAdult = g.every(m => m.age >= 18);
-      if (!allAdult) reasons.push('എല്ലാ അംഗങ്ങളും 18+ ആയിരിക്കണം.');
+      if (!allAdult) reasons.push('എല്ലാ അംഗങ്ങൾക്കും കുറഞ്ഞത് 18 വയസ്സ് പൂർത്തിയായിരിക്കണം.');
       if (g[0].gender !== 'male' && res.females < res.n) reasons.push('General വിഭാഗത്തിന് കവർ ഹെഡ് പുരുഷനായിരിക്കണം.');
-      if (g[0].gender !== 'male' && res.females === res.n) reasons.push('എല്ലാ അംഗങ്ങളും സ്ത്രീകൾ ആയാൽ KLWM 45+ (45–60) അല്ലെങ്കിൽ KLWM 65+ (65+ & 45–60 സഹായി) മാത്രം സാധ്യമാണ്.');
+      if (g[0].gender !== 'male' && res.females === res.n) reasons.push('എല്ലാ അംഗങ്ങളും സ്ത്രീകൾ ആയാൽ KLWM 45+ (എല്ലാവരും 45–60) അല്ലെങ്കിൽ KLWM 65+ (65+ ഉം 45–60 സഹായിയും) മാത്രമേ സാധ്യമാകൂ.');
 
       const div = document.createElement('div');
       div.className = 'no-match';
-      let html = '⚠ ഈ ഗ്രൂപ്പിന് അനുയോജ്യമായ ഒരു വിഭാഗവും കണ്ടെത്താൻ കഴിഞ്ഞില്ല.';
+      let html = 'ഈ ഗ്രൂപ്പിന്റെ പ്രായവും വിവരങ്ങളും അനുസരിച്ച് അനുയോജ്യമായ ഒരു വിഭാഗവും കണ്ടെത്താൻ കഴിഞ്ഞില്ല.';
       if (reasons.length > 0) {
         html += '<ul>' + reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
       }
-      html += '<div style="margin-top:10px;font-weight:500;font-size:13px;">അംഗങ്ങളുടെ എണ്ണം അല്ലെങ്കിൽ ഘടന മാറ്റി വീണ്ടും ശ്രമിക്കുക.</div>';
+      html += '<div style="margin-top:10px;font-weight:500;font-size:13px;">അംഗങ്ങളുടെ എണ്ണം അല്ലെങ്കിൽ വിവരങ്ങൾ മാറ്റി വീണ്ടും ശ്രമിക്കുക.</div>';
       div.innerHTML = html;
       container.appendChild(div);
     } else {
@@ -527,7 +621,7 @@
         card.className = 'category-card ' + cat.cls;
         let html = '<h3>' + cat.title + '</h3>';
         html += '<div class="cat-sub">' + cat.sub + '</div>';
-        html += '<span class="cover-badge">കവർ നമ്പർ: ' + cat.code + '</span>';
+        html += '<span class="cover-badge">കവർ കാറ്റഗറി: ' + cat.code + '</span>';
         html += '<ul>';
         cat.points.forEach(p => { html += '<li>' + p + '</li>'; });
         html += '</ul>';
@@ -537,16 +631,15 @@
 
       const note = document.createElement('div');
       note.className = 'note';
-      note.innerHTML = '📌 <strong>ശ്രദ്ധിക്കുക:</strong> ഇത് പ്രാഥമിക മാർഗ്ഗനിർദ്ദേശം മാത്രമാണ്. അപേക്ഷിക്കുന്നതിനു മുൻപ് Haj Committee of India-യുടെ ഔദ്യോഗിക നിർദ്ദേശങ്ങൾ പരിശോധിക്കുക.';
+      note.innerHTML = '📌 <strong>ശ്രദ്ധിക്കുക:</strong> ഈ വിവരങ്ങൾ പ്രാഥമിക പരിശോധനയ്ക്ക് മാത്രമുള്ളതാണ്. അന്തിമ വിവരങ്ങൾക്ക് ഹജ്ജ് കമ്മിറ്റി അധികാരികളുമായി ബന്ധപ്പെടുക.';
       container.appendChild(note);
     }
 
-    const results = document.getElementById('results');
-    results.classList.add('show');
-    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.classList.add('show');
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // init
   renderMembers();
 </script>
 </body>
