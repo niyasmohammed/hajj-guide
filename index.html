@@ -479,7 +479,7 @@
     const females = g.filter(m => m.gender === 'female');
     const seniors = g.filter(m => m.age >= 65);
     const helpers1865 = g.filter(m => m.age >= 18 && m.age <= 65);
-    const femaleHelpers = g.filter(m => m.gender === 'female' && m.age >= 45 && m.age <= 60);
+    const femaleHelpers = g.filter(m => m.gender === 'female' && m.age >= 45 && m.age <= 65);
     const femaleSeniors = g.filter(m => m.gender === 'female' && m.age >= 65);
     const allFemale = females.length === n;
     const allAdult = g.every(m => m.age >= 18);
@@ -521,7 +521,7 @@
           title: '2. Ladies Without Mehram (LWM) 65+',
           sub: 'മഹ്റമില്ലാത്ത 65+ സ്ത്രീകൾ',
           points: [
-            '65+ വയസ്സുള്ള ' + femaleSeniors.length + ' സ്ത്രീ(കൾ) + 45–60 പ്രായത്തിലുള്ള ' + femaleHelpers.length + ' വനിതാ സഹായി(കൾ).',
+            '65+ വയസ്സുള്ള ' + femaleSeniors.length + ' സ്ത്രീ(കൾ) + 45–65 പ്രായത്തിലുള്ള ' + femaleHelpers.length + ' വനിതാ സഹായി(കൾ).',
             '65+ കാറ്റഗറിയിൽ അപേക്ഷിക്കുന്നവർ മുൻപ് ഒരു തവണ പോലും ഹജ്ജ് കർമ്മം നിർവഹിച്ചവരാകാൻ പാടില്ല.'
           ]
         });
@@ -533,13 +533,13 @@
     }
 
     // 3. KLWM 45+
-    if (allFemale && n <= 5 && g.every(m => m.age >= 45 && m.age <= 60)) {
+    if (allFemale && n <= 5 && g.every(m => m.age >= 45 && m.age <= 65)) {
       results.push({
         cls: 'klwm45', code: 'KLWM',
         title: '3. Ladies Without Mehram (LWM) 45+',
-        sub: '45–60 പ്രായത്തിലുള്ള സ്ത്രീകൾ',
+        sub: '45–65 പ്രായത്തിലുള്ള സ്ത്രീകൾ',
         points: [
-          n + ' സ്ത്രീകൾ, എല്ലാവരും 45–60 പ്രായപരിധിയിൽ.',
+          n + ' സ്ത്രീകൾ, എല്ലാവരും 45–65 പ്രായപരിധിയിൽ.',
           'മഹ്റം അല്ലെങ്കിൽ സഹായി നിർബന്ധമല്ല. പരമാവധി 5 പേർക്ക് അപേക്ഷിക്കാം.'
         ]
       });
@@ -604,7 +604,7 @@
       const allAdult = g.every(m => m.age >= 18);
       if (!allAdult) reasons.push('എല്ലാ അംഗങ്ങൾക്കും കുറഞ്ഞത് 18 വയസ്സ് പൂർത്തിയായിരിക്കണം.');
       if (g[0].gender !== 'male' && res.females < res.n) reasons.push('General വിഭാഗത്തിന് കവർ ഹെഡ് പുരുഷനായിരിക്കണം.');
-      if (g[0].gender !== 'male' && res.females === res.n) reasons.push('എല്ലാ അംഗങ്ങളും സ്ത്രീകൾ ആയാൽ KLWM 45+ (എല്ലാവരും 45–60) അല്ലെങ്കിൽ KLWM 65+ (65+ ഉം 45–60 സഹായിയും) മാത്രമേ സാധ്യമാകൂ.');
+      if (g[0].gender !== 'male' && res.females === res.n) reasons.push('എല്ലാ അംഗങ്ങളും സ്ത്രീകൾ ആയാൽ KLWM 45+ (എല്ലാവരും 45–65) അല്ലെങ്കിൽ KLWM 65+ (65+ ഉം 45–65 സഹായിയും) മാത്രമേ സാധ്യമാകൂ.');
 
       const div = document.createElement('div');
       div.className = 'no-match';
